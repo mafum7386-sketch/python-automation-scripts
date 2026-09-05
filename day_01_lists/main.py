@@ -23,4 +23,14 @@ clients = [
 for c in clients:
     name = fix_text(c["name"])
     order = fix_text(c["order"])
-    print(name, "-", c["email"], "-", order)
+ اليوم  print(name, "-", c["email"], "-", order)
+#اليوم الاول من تصنيف الملفات
+number = -5
+
+if number < 0:
+    print("Negative")
+elif number == 0:
+    print("zero")
+else:
+    print("Positive")
+    #الشروط
