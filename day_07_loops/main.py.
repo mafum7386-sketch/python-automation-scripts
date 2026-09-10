@@ -25,3 +25,30 @@ print("\n--- النتيجة الرقمية ---")
 print("إجمالي المبيعات:", total_sales, "$")
 print("متوسط القيمة:", avg_price, "$")
 ========================================
+# 1. قائمة طلبات المتجر (List of Dictionaries)
+orders = [
+    {"id": 101, "item": "Laptop", "price": 800, "status": "completed"},
+    {"id": 102, "item": "Phone", "price": 500, "status": "pending"},
+    {"id": 103, "item": "Headphones", "price": 100, "status": "pending"},
+    {"id": 104, "item": "Keyboard", "price": 50, "status": "completed"}
+]
+
+print("--- الطلبات المعلقة (Pending) فقط ---")
+
+# 2. المرور على القائمة وتصفية الطلبات
+for order in orders:
+    if order["status"] == "pending":
+        print(f"طلب معلق #{order['id']}: {order['item']} بسعر {order['price']}$")
+# 3. حساب المجموع ومتوسط أسعار جميع الطلبات
+total_sales = 0
+count = len(orders)  # عدد الطلبات الكلي
+
+for order in orders:
+    total_sales += order["price"]  # إضافة سعر كل طلب إلى المجموع
+
+average_price = total_sales / count  # حساب المتوسط
+
+print("\n--- الإحصائيات الماليّة ---")
+print("مجموع قيمة الطلبات:", total_sales, "$")
+print("متوسط سعر الطلبية الواحدة:", average_price, "$")
+
