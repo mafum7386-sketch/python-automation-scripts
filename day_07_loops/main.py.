@@ -45,7 +45,7 @@ count = len(orders)  # عدد الطلبات الكلي
 
 for order in orders:
     total_sales += order["price"]  # إضافة سعر كل طلب إلى المجموع
-
+=
 average_price = total_sales / count  # حساب المتوسط
 
 print("\n--- الإحصائيات الماليّة ---")
