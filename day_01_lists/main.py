@@ -29,6 +29,7 @@ number = -5
 
 if number < 0:
     print("Negative")
+    
 elif number == 0:
     print("zero")
 else:
