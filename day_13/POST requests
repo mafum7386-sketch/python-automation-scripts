@@ -1,0 +1,40 @@
+import requests
+
+# ==========================================
+# Day 13: Sending POST Requests & Webhooks
+# Python Automation Practice
+# ==========================================
+
+# 1. Prepare the Payload (Body Data)
+order_payload = {
+    "order_id": "ORD-2026-881",
+    "customer": "Crystal",
+    "item": "Python Automation Course",
+    "price": 150,
+    "status": "paid"
+}
+
+# 2. Target Endpoint (Testing Server)
+url = "https://httpbin.org/post"
+
+print("🚀 Sending POST request to server...")
+
+# 3. Send the POST Request with JSON Body
+response = requests.post(url, json=order_payload)
+
+# 4. Handle Response & Verify Status Code
+if response.status_code in [200, 201]:
+    print(f"✅ Success! Response Status Code: {response.status_code}")
+    
+    # Parse the returned JSON
+    result = response.json()
+    
+    # Extract returned verification fields
+    sent_customer = result["json"]["customer"]
+    sent_price = result["json"]["price"]
+    
+    print("--- Order Confirmation ---")
+    print(f"Customer Name : {sent_customer}")
+    print(f"Total Amount  : ${sent_price}")
+else:
+    print(f"❌ Failed to send order. Status Code: {response.status_code}")
