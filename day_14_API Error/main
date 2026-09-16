@@ -1,0 +1,44 @@
+import requests
+import time
+
+# ==========================================
+# Day 14: API Error Handling & Retry Logic
+# Python Automation Practice
+# ==========================================
+
+# URL configured to simulate a temporary server error (500)
+url = "https://httpbin.org/status/500"
+
+def fetch_data_with_retry(target_url, retries=1):
+    print(f"🚀 Attempting connection to: {target_url}")
+    
+    for attempt in range(1, retries + 2):
+        try:
+            # Set timeout to 5 seconds to prevent hanging
+            response = requests.get(target_url, timeout=5)
+            
+            # Check for HTTP errors (4xx or 5xx)
+            response.raise_for_status()
+            
+            print(f"✅ Success on attempt {attempt}! Status Code: {response.status_code}")
+            return response.json()
+
+        except requests.exceptions.HTTPError as http_err:
+            print(f"⚠️ Attempt {attempt} failed: HTTP Error ({http_err})")
+        except requests.exceptions.ConnectionError:
+            print(f"⚠️ Attempt {attempt} failed: Network Connection Error!")
+        except requests.exceptions.Timeout:
+            print(f"⚠️ Attempt {attempt} failed: Server Timeout!")
+        except Exception as err:
+            print(f"⚠️ Unexpected error on attempt {attempt}: {err}")
+            
+        # Retry logic: wait before retrying if attempt failed
+        if attempt <= retries:
+            print("⏳ Waiting 3 seconds before retrying...")
+            time.sleep(3)
+            print("🔄 Retrying connection...")
+            
+    print("❌ All retry attempts failed. Script exited safely without crashing.")
+
+# Execute the resilient function
+fetch_data_with_retry(url, retries=1)
