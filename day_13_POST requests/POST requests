@@ -38,3 +38,5 @@ if response.status_code in [200, 201]:
     print(f"Total Amount  : ${sent_price}")
 else:
     print(f"❌ Failed to send order. Status Code: {response.status_code}")
+
+
