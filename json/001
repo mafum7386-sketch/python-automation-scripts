@@ -1,6 +1,29 @@
-00
-77
-. 2
-.
-.
-;
+# 1. بيانات طلبية تجريبية
+is_express = True  # هل الطلب مستعجل؟
+price = 150        # السعر بالدولار
+
+# 2. الشروط المتداخلة لتصنيف الطلب
+if is_express:
+    if price >= 100:
+        priority = "VIP Express (مستعجل جداً + شحن مجاني)"
+    else:
+        priority = "Standard Express (مستعجل عادي)"
+else:
+    if price >= 100:
+        priority = "High Value (طلب عادي بمبلغ كبير)"
+    else:
+        priority = "Regular (طلب عادي)"
+
+print("تصنيف الطلبية هو:", priority) 
+=≈================================
+# 3. سكريبت بسيط للتحقق من الإيميل
+email = "crystal@gmail.com"
+
+if "@" in email:
+    if "." in email.split("@")[1]:  # التأكد من وجود نقطة بعد علامة @  
+        print("البريد الإلكتروني صحيح وجاهز للاستخدام! ✅")  
+    else:
+        print("خطأ: البريد يفتقر إلى النطاق مثل .com! ❌")
+else:
+    print("خطأ: البريد لا يحتوي على علامة @! ❌")
+ppp
