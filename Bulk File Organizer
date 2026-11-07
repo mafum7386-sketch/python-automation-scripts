@@ -1,0 +1,67 @@
+import os
+import shutil
+
+# قاموس يحدد أنواع الملفات والمجلدات التي سيتم إنشاؤها تلقائياً
+FILE_TYPES = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp"],
+    "Documents": [".pdf", ".docx", ".doc", ".txt", ".xlsx", ".pptx", ".csv"],
+    "Videos": [".mp4", ".mkv", ".avi", ".mov"],
+    "Archives": [".zip", ".rar", ".7z", ".tar"],
+    "Code": [".py", ".html", ".css", ".js", ".sql"],
+}
+
+
+def organize_files(target_directory):
+  # 1. التأكد أن المجلد الأساسي موجود فعلاً
+  if not os.path.exists(target_directory):
+    print(f"عذراً، المجلد غير موجود في هذا المسار: {target_directory}")
+    return
+
+  print(f"\nجاري تنظيم الملفات في المجلد: {target_directory}...\n")
+
+  # 2. المرور على كل عنصر (ملف أو مجلد) داخل المجلد المستهدف باستخدام for loop
+  for filename in os.listdir(target_directory):
+    file_path = os.path.join(target_directory, filename)
+
+    # إذا كان العنصر مجلداً فرعياً، نتخارضه ولا ننقله
+    if os.path.isdir(file_path):
+      continue
+
+    # استخراج امتداد الملف وتحويله لحروف صغيرة لتجنب الأخطاء
+    file_ext = os.path.splitext(filename)[1].lower()
+
+    moved = False
+
+    # 3. مقارنة امتداد الملف مع القاموس باستخدام حلقات تكرارية متداخلة
+    for folder_name, extensions in FILE_TYPES.items():
+      if file_ext in extensions:
+        dest_folder = os.path.join(target_directory, folder_name)
+
+        # إذا لم يكن المجلد الفرعي موجوداً، نقوم بإنشائه تلقائياً
+        if not os.path.exists(dest_folder):
+          os.makedirs(dest_folder)
+
+        # نقل الملف إلى مكانه الجديد باستخدام shutil
+        shutil.move(file_path, os.path.join(dest_folder, filename))
+        print(f"تم نقل: [{filename}] ➔ إلى مجلد ({folder_name})")
+        moved = True
+        break
+
+    # 4. إذا كان امتداد الملف غير موجود في القاموس، نضعه في مجلد مستقل مخصص (Others)
+    if not moved:
+      other_folder = os.path.join(target_directory, "Others")
+      if not os.path.exists(other_folder):
+        os.makedirs(other_folder)
+
+      shutil.move(file_path, os.path.join(other_folder, filename))
+      print(f"تم نقل: [{filename}] ➔ إلى مجلد (Others)")
+
+  print(
+      "\nتم الانتهاء من تنظيم جميع الملفات بنجاح تام! 🚀✨"
+  )
+
+
+# نقطة تشغيل البرنامج وطلب المسار من المستخدم
+if __name__ == "__main__":
+  path = input("الرجاء إدخال مسار المجلد الذي تريد تنظيمه: ").strip()
+  organize_files(path)
