@@ -64,3 +64,4 @@ def organize_files(target_directory):
 if __name__ == "__main__":
   path = input("الرجاء إدخال مسار المجلد الذي تريد تنظيمه: ").strip()
   organize_files(path)
+.
