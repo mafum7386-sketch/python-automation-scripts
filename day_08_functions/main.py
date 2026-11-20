@@ -36,7 +36,7 @@ def get_high_value_orders(orders_list, min_price):
 
 # --- استدعاء وتشغيل الدوال ---
 print("1. الطلبات المعلقة:", filter_pending_orders(my_orders))
-
+.
 total_amount, average_amount = calculate_financials(my_orders)
 print(f"2. إجمالي المبيعات: {total_amount}$ | المتوسط: {average_amount}$")
 
